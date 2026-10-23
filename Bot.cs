@@ -10,7 +10,7 @@ namespace cAlgo.Robots
     /// XAUUSD M15 EMA-trend pullback bot with Engulfing / Pin Bar confirmation.
     /// Entries are evaluated only on a new bar (OnBar); OnTick is not implemented.
     /// </summary>
-    [Robot(TimeZone = TimeZones.Utc, AccessRights = AccessRights.None)]
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
     public class XauusdPullbackBot : Robot
     {
         #region Parameters
