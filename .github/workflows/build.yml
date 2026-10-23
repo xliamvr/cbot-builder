@@ -17,10 +17,11 @@ jobs:
       with:
         dotnet-version: '6.0.x'
 
-    - name: Restore & Build
-      run: |
-        dotnet restore
-        dotnet build --configuration Release
+    - name: Restore Packages
+      run: dotnet restore --source https://api.nuget.org/v3/index.json --source https://nuget.ctrader.com/v3/index.json
+
+    - name: Build Project
+      run: dotnet build --configuration Release --no-restore
 
     - name: Package Algo
       run: |
