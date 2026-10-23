@@ -1,4 +1,4 @@
-name: Build cBot .algo
+name: Build cBot
 
 on:
   push:
@@ -8,25 +8,28 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '6.0.x'
 
-    - name: Build Project
-      run: dotnet build --configuration Release
-
-    - name: Package .algo File
+    - name: Restore & Build
       run: |
-        mkdir output
-        cd bin/Release/net6.0/
+        dotnet restore
+        dotnet build --configuration Release
+
+    - name: Package Algo
+      run: |
+        mkdir -p output
+        cd bin/Release/net6.0
         zip -r ../../../output/BotXAUUSD.algo ./*
 
-    - name: Upload .algo Artifact
-      uses: actions/upload-artifact@v3
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
       with:
         name: BotXAUUSD-algo
         path: output/BotXAUUSD.algo
