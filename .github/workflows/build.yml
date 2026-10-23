@@ -18,7 +18,7 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Restore Packages
-      run: dotnet restore --source https://api.nuget.org/v3/index.json --source https://nuget.ctrader.com/v3/index.json
+      run: dotnet restore
 
     - name: Build Project
       run: dotnet build --configuration Release --no-restore
