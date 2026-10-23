@@ -1,0 +1,32 @@
+name: Build cBot .algo
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Build Project
+      run: dotnet build --configuration Release
+
+    - name: Package .algo File
+      run: |
+        mkdir output
+        cd bin/Release/net6.0/
+        zip -r ../../../output/BotXAUUSD.algo ./*
+
+    - name: Upload .algo Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: BotXAUUSD-algo
+        path: output/BotXAUUSD.algo
